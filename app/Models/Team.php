@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role;
 
 class Team extends Model
 {
@@ -18,4 +19,10 @@ class Team extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function userRoles()
+    {
+        return $this->hasMany(RoleTeamUser::class);
+    }
+
 }

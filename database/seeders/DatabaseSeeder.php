@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\RoleTeamUser;
+use App\Models\Team;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +19,19 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             RoleSeeder::class,
+            TeamSeeder::class,
         ]);
 
+        $adminUser = User::where('email', 'admin@crmer.com')->first();
+        $adminRole = Role::where('name', 'admin')->first();
+        $adminTeam = Team::where('name', 'Admin Team')->first();
+
+
+        RoleTeamUser::create([
+            'user_id' => $adminUser->id,
+            'role_id' => $adminRole->id,
+            'team_id' => $adminTeam->id,
+
+        ]);
     }
 }

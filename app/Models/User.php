@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -58,4 +59,17 @@ class User extends Authenticatable
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function rolesOnTeam(Team $team)
+    {
+        return $this->belongsToMany(\Spatie\Permission\Models\Role::class, 'role_team_user')
+                    ->wherePivot('team_id', $team->id)
+                    ->withTimestamps();
+    }
+
+    public function teamRoles()
+    {
+        return $this->hasMany(RoleTeamUser::class);
+    }
+
 }
