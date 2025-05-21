@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TeamController;
 use Livewire\Volt\Volt;
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -9,7 +10,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/', 'dashboard')->name('dashboard');
 
     Route::prefix('teams')->middleware(['auth', 'verified'])->group(function () {
-        Route::view('/', 'teams')->name('teams');
+        Route::get('/', [TeamController::class, 'index'])->name('teams.index');
     });
 
     // Settings

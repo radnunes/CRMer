@@ -1,3 +1,6 @@
 <x-layouts.app :title="__('Teams')">
-    <h1>Teams</h1>
+    <flux:heading>Teams</flux:heading>
+    @foreach($teams as $team)
+        <flux:text>{{ $team->name }}</flux:text>
+    @endforeach
 </x-layouts.app>
