@@ -26,12 +26,21 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::where('name', 'admin')->first();
         $adminTeam = Team::where('name', 'Admin Team')->first();
 
+        $adminUser->assignRole('admin');
 
         RoleTeamUser::create([
             'user_id' => $adminUser->id,
             'role_id' => $adminRole->id,
             'team_id' => $adminTeam->id,
-
         ]);
+
+        $workerUser = User::where('email', 'worker@crmer.com')->first();
+        $workerRole = Role::where('name', 'worker')->first();
+
+        RoleTeamUser::create([
+            'user_id' => $workerUser->id,
+            'role_id' => $workerRole->id,
+        ]);
+
     }
 }

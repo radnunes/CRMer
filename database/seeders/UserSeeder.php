@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -13,9 +14,16 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::firstOrCreate([
+        $userAdmin = User::firstOrCreate([
             'name' => 'Admin',
             'email' => 'admin@crmer.com',
+            'password' => 'password',
+        ]);
+
+
+        $userWorker = User::firstOrCreate([
+            'name' => 'Worker',
+            'email' => 'worker@crmer.com',
             'password' => 'password',
         ]);
     }
