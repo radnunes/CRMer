@@ -62,7 +62,6 @@ class User extends Authenticatable implements FilamentUser
         return $this->rolesOnTeam($team)->where('name', $roleName)->exists();
     }
 
-    // Optionally: check if user has the role on ANY team
     public function hasRoleOnAnyTeam(string $roleName): bool
     {
         return $this->teamRoles()->whereHas('role', function ($query) use ($roleName) {
@@ -72,7 +71,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function isAdmin(): bool
     {
-        return $this->hasRole('admin');  // or use $this->hasRole('admin') if using a roles package
+        return $this->hasRole('admin');
     }
 
     public function canAccessPanel(Panel $panel): bool

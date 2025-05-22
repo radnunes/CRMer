@@ -25,4 +25,13 @@ class Team extends Model
         return $this->hasMany(RoleTeamUser::class);
     }
 
+    public function usersCount()
+    {
+        return $this->userRoles()
+            ->select('team_id')
+            ->groupBy('team_id')
+            ->selectRaw('COUNT(DISTINCT user_id) as count');
+    }
+
+
 }
